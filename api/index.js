@@ -70,8 +70,6 @@ router.get('/list', checkAuth, (req, res) => {
     return res.status(200).json({ ok: true, rows: result});
   }).catch((error) => {
     return res.status(503).json({ ok: false, error});
-  }).finally(() => {
-    return res.status(200).json({ ok: true });
   });
 });
 
