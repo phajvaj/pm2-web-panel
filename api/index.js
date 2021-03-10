@@ -275,6 +275,11 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
+app.use((req, res, next) => {
+  res.setHeader('Content-Type', 'application/json, text/plain, */*');
+  next();
+});
+
 module.exports = {
   path: '/api',
   handler: app
