@@ -9,14 +9,15 @@ export default {
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - pm2-web-panel',
-    title: 'pm2-web-panel',
+    titleTemplate: '%s - PM2-WEB-PANEL',
+    title: 'PM2-WEB-PANEL',
     htmlAttrs: {
       lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'generator', content: 'DoiSoft<phingosoft.com>' },
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
