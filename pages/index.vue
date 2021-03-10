@@ -121,9 +121,6 @@
         if (js.ok)
           this.desserts = js.rows;
 
-        console.clear();
-        console.log(this.desserts);
-
         this.timeter = 30;
       },
       async refreshItem (item) {

@@ -23,6 +23,19 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  router: {
+    base: process.env.APP_BASE_URI || '',
+  },
+  loading: {
+    name: 'chasing-dots',
+    color: '#ff5638',
+    background: 'white',
+    height: '6px'
+  },
+  toast: {
+    position: 'top-right',
+    duration: 2000
+  },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
@@ -51,6 +64,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     'nuxt-sweetalert2',
+    '@nuxtjs/toast',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
