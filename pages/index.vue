@@ -106,7 +106,7 @@
     },
     methods: {
       async initialize () {
-        this.$axios.setToken(this.$auth.getToken('local'), 'Bearer');
+        this.$axios.setToken(this.$auth.getToken('local'));
         const js = await this.$axios.get(`/list`);
 
         if (js.ok)
@@ -128,7 +128,7 @@
         });
 
         if (swal){
-          this.$axios.setToken(this.$auth.getToken('local'), 'Bearer');
+          this.$axios.setToken(this.$auth.getToken('local'));
           try {
             const form = {
               pid: item.pm_id
@@ -162,7 +162,7 @@
         });
 
         if (swal){
-          this.$axios.setToken(this.$auth.getToken('local'), 'Bearer');
+          this.$axios.setToken(this.$auth.getToken('local'));
           try {
             const form = {
               pid: item.pm_id
@@ -196,7 +196,7 @@
         });
 
         if (swal){
-          this.$axios.setToken(this.$auth.getToken('local'), 'Bearer');
+          this.$axios.setToken(this.$auth.getToken('local'));
           try {
             const form = {
               pid: item.pm_id
@@ -230,7 +230,7 @@
         });
 
         if (swal){
-          this.$axios.setToken(this.$auth.getToken('local'), 'Bearer');
+          this.$axios.setToken(this.$auth.getToken('local'));
           try {
             const form = {
               pid: item.pm_id
@@ -250,7 +250,7 @@
         }
       },
       async errorItem (item) {
-        this.$axios.setToken(this.$auth.getToken('local'), 'Bearer');
+        this.$axios.setToken(this.$auth.getToken('local'));
         try {
           const res = await this.$axios.get(`/log-error/${item.pm_id}/${item.name}`);
           const js = res.data;
@@ -269,7 +269,7 @@
         }
       },
       async outItem (item) {
-        this.$axios.setToken(this.$auth.getToken('local'), 'Bearer');
+        this.$axios.setToken(this.$auth.getToken('local'));
         try {
           const res = await this.$axios.get(`/log-out/${item.pm_id}/${item.name}`);
           const js = res.data;
@@ -303,7 +303,7 @@
         });
 
         if (swal){
-          this.$axios.setToken(this.$auth.getToken('local'), 'Bearer');
+          this.$axios.setToken(this.$auth.getToken('local'));
           try {
             const res = await this.$axios.delete(`/${item.pm_id}`);
             const js = res.data;
