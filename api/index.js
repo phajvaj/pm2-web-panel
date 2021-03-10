@@ -49,7 +49,7 @@ router.get('/me', checkAuth, (req, res) => {
 });
 
 router.get('/list', checkAuth, (req, res) => {
-  res.setHeader('Content-Type', 'application/json, text/plain, */*');
+  //res.setHeader('Content-Type', 'application/json, text/plain, */*');
   const pm2List = new Promise(async (resolve, reject) => {
     await pm2.connect(async function(err) {
       if (err) {
