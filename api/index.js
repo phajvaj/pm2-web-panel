@@ -275,15 +275,6 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-app.use((req, res, next) => {
-  res.status(404).json({
-    error: {
-      ok: false,
-      error: 'URI NOT FOUND'
-    }
-  });
-});
-
 module.exports = {
   path: '/api',
   handler: app
