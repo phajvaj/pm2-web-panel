@@ -20,7 +20,7 @@ export default {
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: process.env.APP_BASE_URI + 'favicon.ico' }
     ]
   },
   router: {
@@ -72,7 +72,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   //axios: { proxy: true, debug: true, prefix: '/api' },
   axios: {
-    baseURL: '/api',
+    baseURL: process.env.APP_BASE_URI + 'api',
     credentials: true
   },
   auth: {
