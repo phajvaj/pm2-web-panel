@@ -1,43 +1,51 @@
 <template>
   <div>
-    <v-data-table
-      item-key="name"
-      :headers="headers"
-      :items="desserts"
-      :items-per-page="10"
-      class="elevation-1"
-      loading
-      loading-text="Loading... Please wait"
-    >
-      <v-toolbar-title>PM2 Panel Monitors countting: {{ timeter }} s.</v-toolbar-title>
-      <template v-slot:item.status="{ item }">
-        <v-chip :color="(item.pm2_env.status === 'online')? '#9EFB49' : '#FEC9C9'">{{ item.pm2_env.status }}</v-chip>
-      </template>
-      <template v-slot:item.restart="{ item }">
-        {{ item.pm2_env.restart_time }}
-      </template>
-      <template v-slot:item.uptime="{ item }">
-        {{ timing(item.pm2_env.pm_uptime) }}
-      </template>
-      <template v-slot:item.cpu="{ item }">
-        {{ item.monit.cpu }} %
-      </template>
-      <template v-slot:item.memory="{ item }">
-        {{ (item.monit.memory / (1024 * 1024 )).toFixed(2) }} MB
-      </template>
-      <template v-slot:item.action="{ item }">
-        <v-icon small @click="refreshItem(item)" color="green" title="Refresh">mdi-refresh-circle</v-icon>
-        <v-icon small @click="stopItem(item)" color="orange" title="Stop" v-if="item.pm2_env.status === 'online'">mdi-stop-circle</v-icon>
-        <v-icon small @click="startItem(item)" color="green" title="Start" v-else>mdi-play-circle</v-icon>
-        <v-icon small @click="deleteItem(item)" color="red" title="Delete">mdi-delete-alert</v-icon>
-        <v-icon small @click="errorItem(item)" color="red" title="Show Log Error">mdi-alert-circle</v-icon>
-        <v-icon small @click="outItem(item)" color="blue" title="Show Log Out">mdi-map-marker-alert</v-icon>
-        <v-icon small @click="flushItem(item)" color="yellow" title="Flush Log">mdi-delete-empty</v-icon>
-      </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
-      </template>
-    </v-data-table>
+    <template>
+      <v-data-table
+        item-key="name"
+        :headers="headers"
+        :items="desserts"
+        :items-per-page="10"
+        class="elevation-1"
+        loading
+        loading-text="Loading... Please wait"
+      >
+        <template v-slot:top>
+          <v-toolbar
+            flat
+          >
+            <v-toolbar-title>PM2 Panel Monitors countting: {{ timeter }} s.</v-toolbar-title>
+          </v-toolbar>
+        </template>
+        <template v-slot:item.status="{ item }">
+          <v-chip :color="(item.pm2_env.status === 'online')? '#9EFB49' : '#FEC9C9'">{{ item.pm2_env.status }}</v-chip>
+        </template>
+        <template v-slot:item.restart="{ item }">
+          {{ item.pm2_env.restart_time }}
+        </template>
+        <template v-slot:item.uptime="{ item }">
+          {{ timing(item.pm2_env.pm_uptime) }}
+        </template>
+        <template v-slot:item.cpu="{ item }">
+          {{ item.monit.cpu }} %
+        </template>
+        <template v-slot:item.memory="{ item }">
+          {{ (item.monit.memory / (1024 * 1024 )).toFixed(2) }} MB
+        </template>
+        <template v-slot:item.action="{ item }">
+          <v-icon small @click="refreshItem(item)" color="green" title="Refresh">mdi-refresh-circle</v-icon>
+          <v-icon small @click="stopItem(item)" color="orange" title="Stop" v-if="item.pm2_env.status === 'online'">mdi-stop-circle</v-icon>
+          <v-icon small @click="startItem(item)" color="green" title="Start" v-else>mdi-play-circle</v-icon>
+          <v-icon small @click="deleteItem(item)" color="red" title="Delete">mdi-delete-alert</v-icon>
+          <v-icon small @click="errorItem(item)" color="red" title="Show Log Error">mdi-alert-circle</v-icon>
+          <v-icon small @click="outItem(item)" color="blue" title="Show Log Out">mdi-map-marker-alert</v-icon>
+          <v-icon small @click="flushItem(item)" color="yellow" title="Flush Log">mdi-delete-empty</v-icon>
+        </template>
+        <template v-slot:no-data>
+          <v-btn color="primary" @click="initialize">Reset</v-btn>
+        </template>
+      </v-data-table>
+    </template>
 
     <v-dialog
       transition="dialog-top-transition"

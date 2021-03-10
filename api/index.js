@@ -77,7 +77,7 @@ router.get('/list', checkAuth, (req, res) => {
 
 router.get('/log-error/:pid/:appName', checkAuth, (req, res) => {
   const { pid, appName } = req.params;
-  if (!pid) {
+  if (pid === undefined || pid === null) {
     res.send({ ok: true, error: 'not found pid?'});
     return ;
   }
@@ -100,7 +100,7 @@ router.get('/log-error/:pid/:appName', checkAuth, (req, res) => {
 
 router.get('/log-out/:pid/:appName', checkAuth, (req, res) => {
   const { pid, appName } = req.params;
-  if (!pid) {
+  if (pid === undefined || pid === null) {
     res.send({ ok: true, error: 'not found pid?'});
     return ;
   }
@@ -123,7 +123,7 @@ router.get('/log-out/:pid/:appName', checkAuth, (req, res) => {
 
 router.post('/start', checkAuth, (req, res) => {
   const { pid } = req.body;
-  if (!pid) {
+  if (pid === undefined || pid === null) {
     res.send({ ok: true, error: 'not found pid?'});
     return ;
   }
@@ -151,7 +151,7 @@ router.post('/start', checkAuth, (req, res) => {
 
 router.post('/restart', checkAuth, (req, res) => {
   const { pid } = req.body;
-  if (!pid) {
+  if (pid === undefined || pid === null) {
     res.send({ ok: true, error: 'not found pid?'});
     return ;
   }
@@ -179,7 +179,7 @@ router.post('/restart', checkAuth, (req, res) => {
 
 router.post('/stop', checkAuth, (req, res) => {
   const { pid } = req.body;
-  if (!pid) {
+  if (pid === undefined || pid === null) {
     res.send({ ok: true, error: 'not found pid?'});
     return ;
   }
@@ -207,7 +207,7 @@ router.post('/stop', checkAuth, (req, res) => {
 
 router.post('/flush', checkAuth, (req, res) => {
   const { pid } = req.body;
-  if (!pid) {
+  if (pid === undefined || pid === null) {
     res.send({ ok: true, error: 'not found pid?'});
     return ;
   }
@@ -235,7 +235,7 @@ router.post('/flush', checkAuth, (req, res) => {
 
 router.delete('/delete/:pid', checkAuth, (req, res) => {
   const { pid } = req.params;
-  if (!pid) {
+  if (pid === undefined || pid === null) {
     res.send({ ok: true, error: 'not found pid?'});
     return ;
   }
