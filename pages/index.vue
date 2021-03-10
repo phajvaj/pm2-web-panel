@@ -108,8 +108,8 @@
     methods: {
       async initialize () {
         this.$axios.setToken(this.$auth.getToken('local'));
-        const js = await this.$axios.get(`/list`);
-
+        const res = await this.$axios.get(`/list`);
+        const js = res.data;
         if (js.ok)
           this.desserts = js.rows;
 
