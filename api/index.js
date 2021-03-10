@@ -49,7 +49,6 @@ router.get('/me', checkAuth, (req, res) => {
 });
 
 router.get('/list', checkAuth, (req, res) => {
-  //res.setHeader('Content-Type', 'application/json, text/plain, */*');
   const pm2List = new Promise(async (resolve, reject) => {
     await pm2.connect(async function(err) {
       if (err) {
@@ -77,7 +76,6 @@ router.get('/list', checkAuth, (req, res) => {
 });
 
 router.get('/log-error/:pid/:appName', checkAuth, (req, res) => {
-  res.setHeader('Content-Type', 'application/json, text/plain, */*');
   const { pid, appName } = req.params;
   if (pid === undefined || pid === null) {
     return res.status(503).json({ ok: true, error: 'not found pid?'});
@@ -98,7 +96,6 @@ router.get('/log-error/:pid/:appName', checkAuth, (req, res) => {
 });
 
 router.get('/log-out/:pid/:appName', checkAuth, (req, res) => {
-  res.setHeader('Content-Type', 'application/json, text/plain, */*');
   const { pid, appName } = req.params;
   if (pid === undefined || pid === null) {
     return res.status(503).json({ ok: true, error: 'not found pid?'});
@@ -119,7 +116,6 @@ router.get('/log-out/:pid/:appName', checkAuth, (req, res) => {
 });
 
 router.post('/start', checkAuth, (req, res) => {
-  res.setHeader('Content-Type', 'application/json, text/plain, */*');
   const { pid } = req.body;
   if (pid === undefined || pid === null) {
     return res.status(503).json({ ok: true, error: 'not found pid?'});
@@ -147,7 +143,6 @@ router.post('/start', checkAuth, (req, res) => {
 });
 
 router.post('/restart', checkAuth, (req, res) => {
-  res.setHeader('Content-Type', 'application/json, text/plain, */*');
   const { pid } = req.body;
   if (pid === undefined || pid === null) {
     return res.status(503).json({ ok: true, error: 'not found pid?'});
@@ -175,7 +170,6 @@ router.post('/restart', checkAuth, (req, res) => {
 });
 
 router.post('/stop', checkAuth, (req, res) => {
-  res.setHeader('Content-Type', 'application/json, text/plain, */*');
   const { pid } = req.body;
   if (pid === undefined || pid === null) {
     return res.status(503).json({ ok: true, error: 'not found pid?'});
@@ -203,7 +197,6 @@ router.post('/stop', checkAuth, (req, res) => {
 });
 
 router.post('/flush', checkAuth, (req, res) => {
-  res.setHeader('Content-Type', 'application/json, text/plain, */*');
   const { pid } = req.body;
   if (pid === undefined || pid === null) {
     return res.status(503).json({ ok: true, error: 'not found pid?'});
@@ -231,7 +224,6 @@ router.post('/flush', checkAuth, (req, res) => {
 });
 
 router.delete('/delete/:pid', checkAuth, (req, res) => {
-  res.setHeader('Content-Type', 'application/json, text/plain, */*');
   const { pid } = req.params;
   if (pid === undefined || pid === null) {
     return res.status(503).json({ ok: true, error: 'not found pid?'});
@@ -259,7 +251,6 @@ router.delete('/delete/:pid', checkAuth, (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  res.setHeader('Content-Type', 'application/json, text/plain, */*');
   const { username, password } = req.body;
 
   if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
@@ -268,6 +259,29 @@ router.post('/login', (req, res) => {
   } else {
     return res.status(503).json({ ok: false, error: 'Login fiale!'});
   }
+});
+
+if (process.env.NODE_ENV === 'development') {
+  app.use((err, req, res, next) => {
+    console.log(err.stack);
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+      error: {
+        ok: false,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR)
+      }
+    });
+  });
+}
+
+app.use((req, res, next) => {
+  res.status(HttpStatus.NOT_FOUND).json({
+    error: {
+      ok: false,
+      code: HttpStatus.NOT_FOUND,
+      error: HttpStatus.getStatusText(HttpStatus.NOT_FOUND)
+    }
+  });
 });
 
 
