@@ -5,6 +5,7 @@
         item-key="name"
         :headers="headers"
         :items="desserts"
+        :search="search"
         :items-per-page="10"
         class="elevation-1"
         loading
@@ -15,6 +16,19 @@
             flat
           >
             <v-toolbar-title>PM2 Panel Monitors counting: {{ timeter }} s.</v-toolbar-title>
+            <v-divider
+              class="mx-4"
+              inset
+              vertical
+            ></v-divider>
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
           </v-toolbar>
         </template>
         <template v-slot:item.status="{ item }">
@@ -83,6 +97,7 @@
         items: null,
         error: null,
         dialog: false,
+        search: '',
         logs: {name: '', data: ''},
         headers: [
           { text: 'App name', align: 'center', sortable: false, value: 'name' },
