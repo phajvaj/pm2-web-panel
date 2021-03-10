@@ -261,6 +261,9 @@ router.post('/login', (req, res) => {
   }
 });
 
+
+app.use(router);
+
 if (process.env.NODE_ENV === 'development') {
   app.use((err, req, res, next) => {
     res.status(503).json({
@@ -281,8 +284,6 @@ app.use((req, res, next) => {
   });
 });
 
-
-app.use(router);
 module.exports = {
   path: '/api',
   handler: app
