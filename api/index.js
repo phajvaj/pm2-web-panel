@@ -263,23 +263,20 @@ router.post('/login', (req, res) => {
 
 if (process.env.NODE_ENV === 'development') {
   app.use((err, req, res, next) => {
-    console.log(err.stack);
-    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+    res.status(503).json({
       error: {
         ok: false,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
-        error: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR)
+        error: 'INTERNAL SERVER ERROR'
       }
     });
   });
 }
 
 app.use((req, res, next) => {
-  res.status(HttpStatus.NOT_FOUND).json({
+  res.status(404).json({
     error: {
       ok: false,
-      code: HttpStatus.NOT_FOUND,
-      error: HttpStatus.getStatusText(HttpStatus.NOT_FOUND)
+      error: 'URI NOT FOUND'
     }
   });
 });
