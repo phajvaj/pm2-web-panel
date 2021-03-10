@@ -82,7 +82,8 @@ router.get('/log-error/:pid/:appName', checkAuth, (req, res) => {
     return ;
   }
   try {
-    const path = `/root/.pm2/logs/${appName}-error-${pid}.log`;
+    //const path = `/root/.pm2/logs/${appName}-error-${pid}.log`;
+    const path = `/root/.pm2/logs/${appName}-error*`;
     exec(`cat ${path}`, (error, stdout, stderr) => {
       if (error) {
         res.send({ ok: false, error: stderr});
@@ -104,7 +105,8 @@ router.get('/log-out/:pid/:appName', checkAuth, (req, res) => {
     return ;
   }
   try {
-    const path = `/root/.pm2/logs/${appName}-out-${pid}.log`;
+    //const path = `/root/.pm2/logs/${appName}-out-${pid}.log`;
+    const path = `/root/.pm2/logs/${appName}-out*`;
     exec(`cat ${path}`, (error, stdout, stderr) => {
       if (error) {
         res.send({ ok: false, error: stderr});
