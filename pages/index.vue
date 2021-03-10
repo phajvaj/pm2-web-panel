@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-data-table
-      item-key="pid"
+      item-key="name"
       :headers="headers"
       :items="desserts"
       :items-per-page="10"
