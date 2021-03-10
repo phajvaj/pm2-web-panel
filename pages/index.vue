@@ -14,7 +14,7 @@
           <v-toolbar
             flat
           >
-            <v-toolbar-title>PM2 Panel Monitors countting: {{ timeter }} s.</v-toolbar-title>
+            <v-toolbar-title>PM2 Panel Monitors counting: {{ timeter }} s.</v-toolbar-title>
           </v-toolbar>
         </template>
         <template v-slot:item.status="{ item }">
