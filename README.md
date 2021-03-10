@@ -29,5 +29,5 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
+![alt text](https://i.ibb.co/R0G7Sdm/pm2-web-panel.png)
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
