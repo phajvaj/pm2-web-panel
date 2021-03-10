@@ -26,7 +26,7 @@ const checkAuth = (req, res, next) => {
       req.decoded = decoded;
       next();
     }, err => {
-      return res.send({
+      return res.json({
         ok: false,
         error: 'UNAUTHORIZED',
       });
@@ -41,11 +41,11 @@ const user = {
 };
 
 router.get('/', (req, res) => {
-  res.send({ ok: true, message: 'wellcome to api by. phingosoft.com' });
+  res.json({ ok: true, message: 'wellcome to api by. phingosoft.com' });
 });
 
 router.get('/me', checkAuth, (req, res) => {
-  res.send({ ok: true, data: { user } });
+  res.json({ ok: true, data: { user } });
 });
 
 router.get('/list', checkAuth, (req, res) => {
@@ -67,18 +67,18 @@ router.get('/list', checkAuth, (req, res) => {
   });
 
   pm2List.then((result) => {
-    res.status(200).send({ ok: true, rows: result});
+    res.status(200).json({ ok: true, rows: result});
   }).catch((error) => {
-    res.status(503).send({ ok: false, error});
+    res.status(503).json({ ok: false, error});
   }).finally(() => {
-    res.status(200).send({ ok: true });
+    res.status(200).json({ ok: true });
   });
 });
 
 router.get('/log-error/:pid/:appName', checkAuth, (req, res) => {
   const { pid, appName } = req.params;
   if (pid === undefined || pid === null) {
-    res.status(503).send({ ok: true, error: 'not found pid?'});
+    res.status(503).json({ ok: true, error: 'not found pid?'});
     return ;
   }
   try {
@@ -86,22 +86,22 @@ router.get('/log-error/:pid/:appName', checkAuth, (req, res) => {
     const path = `/root/.pm2/logs/${appName}-error*`;
     exec(`cat ${path}`, (error, stdout, stderr) => {
       if (error) {
-        res.status(503).send({ ok: false, error: stderr});
+        res.status(503).json({ ok: false, error: stderr});
         return;
       } else {
-        res.status(200).send({ ok: true, logs: stdout});
+        res.status(200).json({ ok: true, logs: stdout});
         return;
       }
     });
   } catch (error) {
-    res.status(503).send({ ok: false, error});
+    res.status(503).json({ ok: false, error});
   }
 });
 
 router.get('/log-out/:pid/:appName', checkAuth, (req, res) => {
   const { pid, appName } = req.params;
   if (pid === undefined || pid === null) {
-    res.status(503).send({ ok: true, error: 'not found pid?'});
+    res.status(503).json({ ok: true, error: 'not found pid?'});
     return ;
   }
   try {
@@ -109,22 +109,22 @@ router.get('/log-out/:pid/:appName', checkAuth, (req, res) => {
     const path = `/root/.pm2/logs/${appName}-out*`;
     exec(`cat ${path}`, (error, stdout, stderr) => {
       if (error) {
-        res.status(503).send({ ok: false, error: stderr});
+        res.status(503).json({ ok: false, error: stderr});
         return;
       } else {
-        res.status(200).send({ ok: true, logs: stdout});
+        res.status(200).json({ ok: true, logs: stdout});
         return;
       }
     });
   } catch (error) {
-    res.send({ ok: false, error});
+    res.json({ ok: false, error});
   }
 });
 
 router.post('/start', checkAuth, (req, res) => {
   const { pid } = req.body;
   if (pid === undefined || pid === null) {
-    res.status(503).send({ ok: true, error: 'not found pid?'});
+    res.status(503).json({ ok: true, error: 'not found pid?'});
     return ;
   }
 
@@ -144,7 +144,7 @@ router.post('/start', checkAuth, (req, res) => {
     });
 
     pm2List.finally(() => {
-      res.status(200).send({ ok: true});
+      res.status(200).json({ ok: true});
     });
   });
 });
@@ -152,7 +152,7 @@ router.post('/start', checkAuth, (req, res) => {
 router.post('/restart', checkAuth, (req, res) => {
   const { pid } = req.body;
   if (pid === undefined || pid === null) {
-    res.status(503).send({ ok: true, error: 'not found pid?'});
+    res.status(503).json({ ok: true, error: 'not found pid?'});
     return ;
   }
 
@@ -172,7 +172,7 @@ router.post('/restart', checkAuth, (req, res) => {
     });
 
     pm2List.finally(() => {
-      res.status(200).send({ ok: true});
+      res.status(200).json({ ok: true});
     });
   });
 });
@@ -180,7 +180,7 @@ router.post('/restart', checkAuth, (req, res) => {
 router.post('/stop', checkAuth, (req, res) => {
   const { pid } = req.body;
   if (pid === undefined || pid === null) {
-    res.status(503).send({ ok: true, error: 'not found pid?'});
+    res.status(503).json({ ok: true, error: 'not found pid?'});
     return ;
   }
 
@@ -200,7 +200,7 @@ router.post('/stop', checkAuth, (req, res) => {
     });
 
     pm2List.finally(() => {
-      res.status(200).send({ ok: true});
+      res.status(200).json({ ok: true});
     });
   });
 });
@@ -208,7 +208,7 @@ router.post('/stop', checkAuth, (req, res) => {
 router.post('/flush', checkAuth, (req, res) => {
   const { pid } = req.body;
   if (pid === undefined || pid === null) {
-    res.status(503).send({ ok: true, error: 'not found pid?'});
+    res.status(503).json({ ok: true, error: 'not found pid?'});
     return ;
   }
 
@@ -228,7 +228,7 @@ router.post('/flush', checkAuth, (req, res) => {
     });
 
     pm2List.finally(() => {
-      res.status(200).send({ ok: true});
+      res.status(200).json({ ok: true});
     });
   });
 });
@@ -236,7 +236,7 @@ router.post('/flush', checkAuth, (req, res) => {
 router.delete('/delete/:pid', checkAuth, (req, res) => {
   const { pid } = req.params;
   if (pid === undefined || pid === null) {
-    res.status(503).send({ ok: true, error: 'not found pid?'});
+    res.status(503).json({ ok: true, error: 'not found pid?'});
     return ;
   }
 
@@ -256,7 +256,7 @@ router.delete('/delete/:pid', checkAuth, (req, res) => {
     });
 
     pm2List.finally(() => {
-      res.status(503).send({ ok: true});
+      res.status(503).json({ ok: true});
     });
   });
 });
@@ -266,9 +266,9 @@ router.post('/login', (req, res) => {
 
   if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
     const token = jwt.sign({ username: username });
-    res.status(200).send({ ok: true, token: token });
+    res.status(200).json({ ok: true, token: token });
   } else {
-    res.status(503).send({ ok: false, error: 'Login fiale!'});
+    res.status(503).json({ ok: false, error: 'Login fiale!'});
   }
 });
 
